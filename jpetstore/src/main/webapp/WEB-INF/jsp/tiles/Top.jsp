@@ -42,6 +42,9 @@
         <input src="../images/search.gif" type="image"/>
       </form>
     </td>
+     <td style="text-align:left">
+    	<a href="<c:url value="/shop/blacklist.do"/>">Black List</a>
+    </td>
   </tr>
 </table>
 

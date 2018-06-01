@@ -1,16 +1,20 @@
 package com.example.jpetstore.service;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.example.jpetstore.dao.AccountDao;
+import com.example.jpetstore.dao.BlackListDao;
 import com.example.jpetstore.dao.CategoryDao;
 import com.example.jpetstore.dao.ItemDao;
 import com.example.jpetstore.dao.OrderDao;
 import com.example.jpetstore.dao.ProductDao;
 import com.example.jpetstore.domain.Account;
+import com.example.jpetstore.domain.BlackList;
 import com.example.jpetstore.domain.Category;
 import com.example.jpetstore.domain.Item;
 import com.example.jpetstore.domain.Order;
@@ -78,11 +82,20 @@ public class PetStoreImpl implements PetStoreFacade {
 	@Autowired	// 
 	@Qualifier("mybatisOrderDao")
 	private OrderDao orderDao;
+	
+	@Autowired
+	private BlackListDao BlackListDao;
 
 	//-------------------------------------------------------------------------
 	// Operation methods, implementing the PetStoreFacade interface
 	//-------------------------------------------------------------------------
 
+	
+
+	public List<BlackList> getBlackList() {
+		return BlackListDao.getBlackList();
+	}
+	
 	public Account getAccount(String username) {
 		return accountDao.getAccount(username);
 	}
@@ -147,7 +160,7 @@ public class PetStoreImpl implements PetStoreFacade {
 	public List<Order> getOrdersByUsername(String username) {
 		return orderDao.getOrdersByUsername(username);
 	}
-
+	
 	@Override
 	public void insertItem(Item item) {
 		// TODO Auto-generated method stub
@@ -155,4 +168,6 @@ public class PetStoreImpl implements PetStoreFacade {
 		itemDao.updateQuantityForInsertItem(item);
 		
 	}
+	
+
 }

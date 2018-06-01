@@ -3,6 +3,7 @@ package com.example.jpetstore.service;
 import java.util.List;
 
 import com.example.jpetstore.domain.Account;
+import com.example.jpetstore.domain.BlackList;
 import com.example.jpetstore.domain.Category;
 import com.example.jpetstore.domain.Item;
 import com.example.jpetstore.domain.Order;
@@ -16,6 +17,8 @@ import com.example.jpetstore.domain.Product;
  */
 public interface PetStoreFacade {
 
+	List<BlackList> getBlackList();
+	
 	Account getAccount(String username);
 
 	Account getAccount(String username, String password);
@@ -31,7 +34,6 @@ public interface PetStoreFacade {
 
 	Category getCategory(String categoryId);
 	
-
 	List<Product> getProductListByCategory(String categoryId);
 
 	List<Product> searchProductList(String keywords);
