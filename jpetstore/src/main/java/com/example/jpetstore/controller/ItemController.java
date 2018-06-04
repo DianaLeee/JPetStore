@@ -27,12 +27,12 @@ public class ItemController {
 	@Autowired
 	private ItemValidator itemValidator;
 	
-	@ModelAttribute("itemForm") //Command Ã¼ÀÇ ÀÌ¸§ ÁöÁ¤ 
+	@ModelAttribute("itemForm") 
 	public ItemForm createItemForm() {
 		return new ItemForm();
 	}
 	
-	@ModelAttribute("categoryNames") //Command °´Ã¼ÀÇ ÀÌ¸§ ÁöÁ¤ 
+	@ModelAttribute("categoryNames")  
 	public List<String> referenceData() {
 		ArrayList<String> categoryNames = new ArrayList<String>();
 		categoryNames.add("FISH");
@@ -67,19 +67,19 @@ public class ItemController {
 		return productNames;
 	}
 	
-	@RequestMapping("/shop/addItem.do") //addItem.doÀÇ ¿äÃ»À» mapping 
+	@RequestMapping("/shop/addItem.do") //addItem.doï¿½ï¿½ ï¿½ï¿½Ã»ï¿½ï¿½ mapping 
 	public String addNewItem(HttpServletRequest request,
-			@ModelAttribute("itemForm") ItemForm itemForm //ItemForm.java -> ¾ÆÀÌÅÛ Á¤º¸¸¦ ÀúÀåÇÒ °´Ã¼.ÀÌ ¾È¿¡ Item °´Ã¼ Á¸Àç. 
+			@ModelAttribute("itemForm") ItemForm itemForm //ItemForm.java -> ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼.ï¿½ï¿½ ï¿½È¿ï¿½ Item ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½. 
 			) throws ModelAndViewDefiningException {
 		UserSession userSession = (UserSession) request.getSession().getAttribute("userSession");
-		if(userSession != null) { //UserSession ÀÌ ÀÖ´Â °æ¿ì -> ·Î±×ÀÎ ÇÔ. NewItemFormÀ» return;
+		if(userSession != null) { //UserSession ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ -> ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½. NewItemFormï¿½ï¿½ return;
 			return "NewItemForm";
 		}
 		else { 
-			//UserSession ÀÌ ¾ø´Â °æ¿ì -> ·Î±×ÀÎ ÇÏÁö ¾ÊÀ¸¸é ¹°Ç° µî·ÏÀ» ÇÏÁö ¸øÇÏµµ·Ï ¸·À½ 
-			//¿¡·¯¸Þ¼¼Áö Ãâ·ÂÇÏ°Ô
+			//UserSession ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ -> ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
+			//ï¿½ï¿½ï¿½ï¿½ï¿½Þ¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï°ï¿½
 			ModelAndView modelAndView = new ModelAndView("Error");
-			modelAndView.addObject("message", "¹°Ç°À» µî·ÏÇÏ½Ã·Á¸é ¸ÕÀú ·Î±×ÀÎ ÇÏ¼¼¿ä.");
+			modelAndView.addObject("message", "ï¿½ï¿½Ç°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï½Ã·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ ï¿½Ï¼ï¿½ï¿½ï¿½.");
 			System.out.println(modelAndView);
 			throw new ModelAndViewDefiningException(modelAndView);
 		}
@@ -89,7 +89,7 @@ public class ItemController {
 	public String bindAndValidateOrder(HttpServletRequest request,
 			@ModelAttribute("itemForm") ItemForm itemForm,
 			BindingResult result) {
-		//User ÀÌ¸§ÀÌ Àü´ÞÀÌ ¾ÈµÇ¾î¼­ ÁöÁ¤ÇØÁÜ 
+		//User ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ÈµÇ¾î¼­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 		UserSession userSession = (UserSession)request.getSession().getAttribute("userSession");
 		itemForm.getItem().setSellerUsername(userSession.getAccount().getUsername());
 
@@ -107,7 +107,7 @@ public class ItemController {
 	protected ModelAndView confirmAddItem(
 			@ModelAttribute("itemForm") ItemForm itemForm,
 			SessionStatus status) {
-		//½ÇÁ¦ »ðÀÔ 
+		//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
 		petStore.insertItem(itemForm.getItem());
 		ModelAndView mav =  new ModelAndView("ViewAddedItem");
 		mav.addObject("addedItem", itemForm.getItem());
