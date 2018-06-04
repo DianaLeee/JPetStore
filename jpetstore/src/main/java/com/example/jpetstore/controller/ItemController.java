@@ -67,19 +67,19 @@ public class ItemController {
 		return productNames;
 	}
 	
-	@RequestMapping("/shop/addItem.do") //addItem.do�� ��û�� mapping 
+	@RequestMapping("/shop/addItem.do") //addItem.do의 요청 mapping 
 	public String addNewItem(HttpServletRequest request,
-			@ModelAttribute("itemForm") ItemForm itemForm //ItemForm.java -> ������ ������ ������ ��ü.�� �ȿ� Item ��ü ����. 
+			@ModelAttribute("itemForm") ItemForm itemForm //ItemForm.java -> 아이템 정보를 저장할 객체. 이 안에 Item 객체 존재. 
 			) throws ModelAndViewDefiningException {
 		UserSession userSession = (UserSession) request.getSession().getAttribute("userSession");
-		if(userSession != null) { //UserSession �� �ִ� ��� -> �α��� ��. NewItemForm�� return;
+		if(userSession != null) { //UserSession이 있는 경우-> 로그인 함. NewItemForm을 return;
 			return "NewItemForm";
 		}
 		else { 
-			//UserSession �� ���� ��� -> �α��� ���� ������ ��ǰ ����� ���� ���ϵ��� ���� 
-			//�����޼��� ����ϰ�
+			//UserSession 이 없는 경우 -> 로그인 하지 않으면 물품 등록을 하지 못하도록 막음 
+			//에러메세지 출력하게
 			ModelAndView modelAndView = new ModelAndView("Error");
-			modelAndView.addObject("message", "��ǰ�� ����Ͻ÷��� ���� �α��� �ϼ���.");
+			modelAndView.addObject("message", "물품을 등록하시려면 먼저 로그인 하세요");
 			System.out.println(modelAndView);
 			throw new ModelAndViewDefiningException(modelAndView);
 		}
@@ -89,7 +89,7 @@ public class ItemController {
 	public String bindAndValidateOrder(HttpServletRequest request,
 			@ModelAttribute("itemForm") ItemForm itemForm,
 			BindingResult result) {
-		//User �̸��� ������ �ȵǾ �������� 
+		//User 이름이 전달이 안되어서 지정해줌  
 		UserSession userSession = (UserSession)request.getSession().getAttribute("userSession");
 		itemForm.getItem().setSellerUsername(userSession.getAccount().getUsername());
 
@@ -107,7 +107,7 @@ public class ItemController {
 	protected ModelAndView confirmAddItem(
 			@ModelAttribute("itemForm") ItemForm itemForm,
 			SessionStatus status) {
-		//���� ���� 
+		//실제 삽입 
 		petStore.insertItem(itemForm.getItem());
 		ModelAndView mav =  new ModelAndView("ViewAddedItem");
 		mav.addObject("addedItem", itemForm.getItem());
