@@ -156,6 +156,11 @@ public class PetStoreImpl implements PetStoreFacade {
 		orderDao.insertOrder(order);
 	}
 	
+	//Added method for showing list of my selling items
+	public List<Item> getSellingItemListBySellerUsername(String username) {
+		return itemDao.getSellingItemListBySellerUsername(username);
+	}
+	
 	public Order getOrder(int orderId) {
 		return orderDao.getOrder(orderId);
 	}

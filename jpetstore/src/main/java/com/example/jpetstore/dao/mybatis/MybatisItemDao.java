@@ -43,6 +43,7 @@ public class MybatisItemDao implements ItemDao {
 		return itemMapper.getItem(itemId);
 	}
 	
+	//Added methods
 	public void insertItem(Item item) throws DataAccessException {
 		itemMapper.insertItem(item);
 	}
@@ -52,4 +53,12 @@ public class MybatisItemDao implements ItemDao {
 		itemMapper.updateQuantityForInsertItem(item);
 		
 	}
+
+	@Override
+	public List<Item> getSellingItemListBySellerUsername(String username) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return itemMapper.getSellingItemListBySellerUsername(username);
+	}
+	
+	
 }

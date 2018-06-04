@@ -20,4 +20,6 @@ public interface ItemDao {
   void insertItem(Item item) throws DataAccessException;
   
   void updateQuantityForInsertItem(Item item) throws DataAccessException;
+
+  List<Item> getSellingItemListBySellerUsername(String username) throws DataAccessException;
 }

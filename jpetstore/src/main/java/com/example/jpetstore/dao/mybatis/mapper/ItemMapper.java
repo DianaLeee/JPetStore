@@ -40,4 +40,6 @@ public interface ItemMapper {
   void insertItem(Item item);
   
   void updateQuantityForInsertItem(Item item);
+  
+  List<Item> getSellingItemListBySellerUsername(String username);
 }

@@ -19,7 +19,7 @@ public class Item implements Serializable {
   private Product product;
   private int quantity;
   
-  //Ãß°¡ÇÑ°Í 
+  //ì¶”ê°€í•œí•„ë“œ 
   private String sellerUsername;
 
   /* JavaBeans Properties */

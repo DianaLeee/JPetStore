@@ -121,10 +121,19 @@ public class ItemController {
 	 * Showing list of my selling items
 	 */
 	@RequestMapping("/shop/listSellingItems.do")
-	public ModelAndView handleRequest(
-			@ModelAttribute("userSession") UserSession userSession) throws Exception {
-		String username = userSession.getAccount().getUsername();
-		return new ModelAndView();
+	public ModelAndView handleRequest(HttpServletRequest request) throws Exception {
+		UserSession userSession = (UserSession) request.getSession().getAttribute("userSession");
+		if(userSession != null) {
+			String username = userSession.getAccount().getUsername();
+			System.out.println(username + " hello!");
+			return new ModelAndView("ListSellingItems", "sellingItemList", 
+					petStore.getSellingItemListBySellerUsername(username));
+		} else {
+			ModelAndView modelAndView = new ModelAndView("Error");
+			modelAndView.addObject("message", "물품을 확인하시려면 먼저 로그인 하세요");
+			System.out.println(modelAndView);
+			throw new ModelAndViewDefiningException(modelAndView);
+		}
 	}
 	
 }
