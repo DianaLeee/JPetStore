@@ -46,8 +46,10 @@ public interface PetStoreFacade {
 	Item getItem(String itemId);
 
 	boolean isItemInStock(String itemId);
-	//Added method
+	//Added method for inserting item
 	void insertItem(Item item);
+	//Added method for viewing list of my selling items
+	List<Item> getSellingItemListBySellerUsername(String username);
 
 
 	void insertOrder(Order order);

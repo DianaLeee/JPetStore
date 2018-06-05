@@ -64,9 +64,9 @@ public class PetStoreImpl implements PetStoreFacade {
 	private AccountDao accountDao;
 	
 	@Autowired  
-	//@Qualifier("jdbcTemplateCategoryDao") // �Ǵ�  
-	// @Qualifier("namedParameterJdbcTemplateCategoryDao")  // �Ǵ� 
-	// @Qualifier("jdbcDaoSupportCategoryDao")  // �Ǵ�
+	//@Qualifier("jdbcTemplateCategoryDao") // �Ǵ�  
+	// @Qualifier("namedParameterJdbcTemplateCategoryDao")  // �Ǵ� 
+	// @Qualifier("jdbcDaoSupportCategoryDao")  // �Ǵ�
 	// @Qualifier("PureJdbcCategoryDao")
 	@Qualifier("mybatisCategoryDao")
 	private CategoryDao categoryDao;
@@ -148,9 +148,17 @@ public class PetStoreImpl implements PetStoreFacade {
 		return itemDao.isItemInStock(itemId);
 	}
 
+	//insertOrder 실행 중 오류 생기면 전의 작업도 rollback 되어야함
+	//alter table inventory add constraint c1 check(qty >= 0) 테이블에 이 제약조건 추가해야함 
+	//@Transactional 로 선언적 Transcation 관리 (insertOrder는 2개를 하나로 묶어서..)
 	public void insertOrder(Order order) {
 		itemDao.updateQuantity(order);	    
 		orderDao.insertOrder(order);
+	}
+	
+	//Added method for showing list of my selling items
+	public List<Item> getSellingItemListBySellerUsername(String username) {
+		return itemDao.getSellingItemListBySellerUsername(username);
 	}
 	
 	public Order getOrder(int orderId) {
