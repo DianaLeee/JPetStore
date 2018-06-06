@@ -80,3 +80,17 @@
       <form:errors path="account.bannerOption" cssClass="error" /></td>
   </tr>
 </table>
+
+<h3>
+  <font color="darkgreen">Point Information</font>
+</h3>
+
+<table class="n13" >
+  <tr>
+    <td>Point:</td>
+    <td>60</td>
+  </tr>
+  <tr>
+    <td colspan="2"><a href='<c:url value="/shop/listOrders.do"/>'>Point History</a></td>
+  </tr>
+</table>
