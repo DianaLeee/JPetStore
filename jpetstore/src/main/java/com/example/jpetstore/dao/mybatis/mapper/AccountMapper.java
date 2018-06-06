@@ -44,4 +44,7 @@ public interface AccountMapper {
 
   void updateSignon(Account account);
 
+  void updatePoint(String username, int point);
+  
+  int getUserPoint(Account account);
 }

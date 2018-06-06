@@ -123,4 +123,16 @@
     INSERT INTO SIGNON (PASSWORD,USERNAME)
     VALUES (#{password}, #{username})
   </insert>
+  
+   <update id="updatePoint">
+	 UPDATE ACCOUNT SET
+	    POINT = POINT + #{param2}
+	 WHERE USERID = #{param1} <!-- account domain's username -->
+  </update>
+  
+  <select id="getUserPoint" parameterType="Account" resultType="java.lang.Integer">
+  	SELECT ACCOUNT.POINT 
+  		WHERE ACCOUNT.USERID = ${username}
+  </select>
+  
 </mapper>
