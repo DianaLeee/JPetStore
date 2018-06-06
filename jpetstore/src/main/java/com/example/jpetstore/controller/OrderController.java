@@ -97,6 +97,7 @@ public class OrderController {
 			@ModelAttribute("orderForm") OrderForm orderForm, 
 			SessionStatus status) {
 		petStore.insertOrder(orderForm.getOrder());
+		petStore.updatePoint(orderForm.getOrder().getUsername(), (int)(orderForm.getOrder().getTotalPrice()*0.1));
 		ModelAndView mav = new ModelAndView("ViewOrder");
 		mav.addObject("order", orderForm.getOrder());
 		mav.addObject("message", "Thank you, your order has been submitted.");

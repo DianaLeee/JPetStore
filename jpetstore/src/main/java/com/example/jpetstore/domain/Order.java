@@ -38,13 +38,20 @@ public class Order implements Serializable {
   private String locale;
   private String status;
   private List<LineItem> lineItems = new ArrayList<LineItem>();
+  private int point;
 
   /* JavaBeans Properties */
 
   public int getOrderId() { return orderId; }
   public void setOrderId(int orderId) { this.orderId = orderId; }
 
-  public String getUsername() { return username; }
+  public int getPoint() {
+	return point;
+  }
+  public void setPoint(int point) {
+		this.point = point;
+	}
+public String getUsername() { return username; }
   public void setUsername(String username) { this.username = username; }
 
   public Date getOrderDate() { return orderDate; }

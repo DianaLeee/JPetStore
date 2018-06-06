@@ -57,5 +57,6 @@ public interface PetStoreFacade {
 	Order getOrder(int orderId);
 
 	List<Order> getOrdersByUsername(String username);
-
+	
+	void updatePoint(String username, int point);
 }
