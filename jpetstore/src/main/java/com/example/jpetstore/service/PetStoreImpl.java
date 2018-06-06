@@ -153,6 +153,7 @@ public class PetStoreImpl implements PetStoreFacade {
 	//@Transactional 濡� �꽑�뼵�쟻 Transcation 愿�由� (insertOrder�뒗 2媛쒕�� �븯�굹濡� 臾띠뼱�꽌..)
 	public void insertOrder(Order order) {
 		int point = (int) (order.getTotalPrice()*0.1);
+		accountDao.updatePoint(order.getUsername(), point);
 		order.setPoint(point);
 		itemDao.updateQuantity(order);	    
 		orderDao.insertOrder(order);
