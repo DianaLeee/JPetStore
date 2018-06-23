@@ -64,9 +64,9 @@ public class PetStoreImpl implements PetStoreFacade {
 	private AccountDao accountDao;
 	
 	@Autowired  
-	//@Qualifier("jdbcTemplateCategoryDao") // �Ǵ�  
-	// @Qualifier("namedParameterJdbcTemplateCategoryDao")  // �Ǵ� 
-	// @Qualifier("jdbcDaoSupportCategoryDao")  // �Ǵ�
+	//@Qualifier("jdbcTemplateCategoryDao") // 占실댐옙  
+	// @Qualifier("namedParameterJdbcTemplateCategoryDao")  // 占실댐옙 
+	// @Qualifier("jdbcDaoSupportCategoryDao")  // 占실댐옙
 	// @Qualifier("PureJdbcCategoryDao")
 	@Qualifier("mybatisCategoryDao")
 	private CategoryDao categoryDao;
@@ -148,10 +148,13 @@ public class PetStoreImpl implements PetStoreFacade {
 		return itemDao.isItemInStock(itemId);
 	}
 
-	//insertOrder 실행 중 오류 생기면 전의 작업도 rollback 되어야함
-	//alter table inventory add constraint c1 check(qty >= 0) 테이블에 이 제약조건 추가해야함 
-	//@Transactional 로 선언적 Transcation 관리 (insertOrder는 2개를 하나로 묶어서..)
+	//insertOrder �떎�뻾 以� �삤瑜� �깮湲곕㈃ �쟾�쓽 �옉�뾽�룄 rollback �릺�뼱�빞�븿
+	//alter table inventory add constraint c1 check(qty >= 0) �뀒�씠釉붿뿉 �씠 �젣�빟議곌굔 異붽��빐�빞�븿 
+	//@Transactional 濡� �꽑�뼵�쟻 Transcation 愿�由� (insertOrder�뒗 2媛쒕�� �븯�굹濡� 臾띠뼱�꽌..)
 	public void insertOrder(Order order) {
+		int point = (int) (order.getTotalPrice()*0.1);
+		accountDao.updatePoint(order.getUsername(), point);
+		order.setPoint(point);
 		itemDao.updateQuantity(order);	    
 		orderDao.insertOrder(order);
 	}
@@ -182,8 +185,9 @@ public class PetStoreImpl implements PetStoreFacade {
 		itemDao.deleteItemMyActivity(itemId);
 		itemDao.deleteItemInventory(itemId);
 		itemDao.deleteItem(itemId);
-		
 	}
-	
 
+	public void updatePoint(String username, int point) {
+		accountDao.updatePoint(username, point);
+	}
 }

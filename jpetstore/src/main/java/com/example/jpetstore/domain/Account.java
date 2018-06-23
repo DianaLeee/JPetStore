@@ -26,10 +26,16 @@ public class Account implements Serializable {
   private boolean listOption;
   private boolean bannerOption;
   private String bannerName;
-
+  private int point;
   /* JavaBeans Properties */
 
-  public String getUsername() { return username; }
+  public int getPoint() {
+	return point;
+}
+public void setPoint(int point) {
+	this.point = point;
+}
+public String getUsername() { return username; }
   public void setUsername(String username) { this.username = username; }
 
   public String getPassword() { return password; }

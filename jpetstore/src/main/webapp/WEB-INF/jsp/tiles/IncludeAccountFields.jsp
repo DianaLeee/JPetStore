@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <h3>
   <font color="darkgreen">Account Information</font>
@@ -78,5 +79,19 @@
   <tr>
     <td colspan="2"><form:checkbox path="account.bannerOption" label="Enable MyBanner" /> 
       <form:errors path="account.bannerOption" cssClass="error" /></td>
+  </tr>
+</table>
+
+<h3>
+  <font color="darkgreen">Point Information</font>
+</h3>
+
+<table class="n13" >
+  <tr>
+    <td>Point:</td>
+    <td><c:out value = "${userSession.getAccount().getPoint()}"/></td>
+  </tr>
+  <tr>
+    <td colspan="2"><a href='<c:url value="/shop/listOrders.do"/>'>Point History</a></td>
   </tr>
 </table>

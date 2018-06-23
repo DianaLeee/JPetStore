@@ -46,6 +46,5 @@
       value="Save Account Information" />
 </form:form>
 <p></p>
-  <h3><b><a href='<c:url value="/shop/listOrders.do"/>'>My Orders</a></b></h3>
   
 </div>

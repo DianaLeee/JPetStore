@@ -46,4 +46,9 @@ public class MybatisAccountDao implements AccountDao {
 	public List<String> getUsernameList() throws DataAccessException {
 		return accountMapper.getUsernameList();
 	}
+
+
+	public void updatePoint(String username, int point) throws DataAccessException {
+		accountMapper.updatePoint(username, point);
+	}
 }

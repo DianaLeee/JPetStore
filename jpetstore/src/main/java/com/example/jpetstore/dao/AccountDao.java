@@ -15,5 +15,7 @@ public interface AccountDao {
   void updateAccount(Account account) throws DataAccessException;
 
   List<String> getUsernameList() throws DataAccessException;
+  
+  void updatePoint(String username, int point) throws DataAccessException;
 
 }

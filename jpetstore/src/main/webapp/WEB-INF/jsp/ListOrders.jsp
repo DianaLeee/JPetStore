@@ -6,7 +6,7 @@
   </p>
   <table class="n23">
     <tr bgcolor="#CCCCCC">
-      <td><b>Order ID</b></td> <td><b>Date</b></td> <td><b>Total Price</b></td>
+      <td><b>Order ID</b></td> <td><b>Date</b></td> <td><b>Total Price</b></td> <td><b>Point</b></td>
     </tr>
     <c:forEach var="order" items="${orderList}">
       <tr bgcolor="#FFFF88">
@@ -19,6 +19,7 @@
             pattern="yyyy/MM/dd hh:mm:ss" /></td>
         <td><fmt:formatNumber value="${order.totalPrice}"
             pattern="$#,##0.00" /></td>
+        <td>${order.point}</td>
       </tr>
     </c:forEach>
   </table>
