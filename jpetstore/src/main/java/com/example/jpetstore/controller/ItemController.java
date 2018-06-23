@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
@@ -65,6 +66,19 @@ public class ItemController {
 		productNames.add("Finch");
 
 		return productNames;
+	}
+	
+	/**
+	 * Added June 23
+	 * Edit item
+	 */
+	@RequestMapping("/shop/editSellingItem.do")
+	public ItemForm editSellingItem(
+			@RequestParam("workingItemId") String workingItemId,
+			@ModelAttribute("itemForm") ItemForm itemForm
+			) throws Exception {
+		itemForm = new ItemForm(petStore.getItem(workingItemId));
+		return new ItemForm(petStore.getItem(workingItemId));
 	}
 	
 	@RequestMapping("/shop/addItem.do") //addItem.do의 요청 mapping 
@@ -135,5 +149,34 @@ public class ItemController {
 			throw new ModelAndViewDefiningException(modelAndView);
 		}
 	}
+	
+	/**
+	 * Added June 22
+	 * Delete item
+	 */
+	@RequestMapping("/shop/removeSellingItem.do")
+	public ModelAndView removeSellingItem(
+			@RequestParam("workingItemId")String workingItemId,
+			HttpServletRequest request
+			) throws Exception {
+		petStore.deleteItem(workingItemId);
+		
+		UserSession userSession = (UserSession) request.getSession().getAttribute("userSession");
+		if(userSession != null) {
+			String username = userSession.getAccount().getUsername();
+			System.out.println(username + " hello!");
+			return new ModelAndView("ListSellingItems", "sellingItemList", 
+					petStore.getSellingItemListBySellerUsername(username));
+		}
+		//ModelAndView mav = new ModelAndView("RemoveSellingItem");
+		//mav.addObject("message", "Thank you, your item has been deleted.");
+		else {
+			ModelAndView modelAndView = new ModelAndView("Error");
+			modelAndView.addObject("message", "세션오류");
+			System.out.println(modelAndView);
+			throw new ModelAndViewDefiningException(modelAndView);
+		}
+	}
+	
 	
 }

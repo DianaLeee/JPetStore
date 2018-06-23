@@ -59,6 +59,24 @@ public class MybatisItemDao implements ItemDao {
 		// TODO Auto-generated method stub
 		return itemMapper.getSellingItemListBySellerUsername(username);
 	}
+
+	@Override
+	public void deleteItem(String itemId) throws DataAccessException {
+		// TODO Auto-generated method stub
+		itemMapper.deleteItem(itemId);
+		
+	}
+
+	@Override
+	public void deleteItemInventory(String itemId) throws DataAccessException {
+		// TODO Auto-generated method stub
+		itemMapper.deleteItemInventory(itemId);
+	}
+	
+	@Override
+	public void deleteItemMyActivity(String itemId) throws DataAccessException {
+		itemMapper.deleteItemMyActivity(itemId);
+	}
 	
 	
 }

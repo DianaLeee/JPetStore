@@ -4,15 +4,22 @@ import java.io.Serializable;
 
 import com.example.jpetstore.domain.Item;
 
-//ItemForm : ¾ÆÀÌÅÛ Á¤º¸¸¦ ÀÔ·Â ¹Þ¾Æ ÀúÀåÇÒ °´Ã¼ 
+//ItemForm : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ ï¿½Þ¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ 
 @SuppressWarnings("serial")
 public class ItemForm implements Serializable {
 	
-	private final Item item = new Item();
+	private  Item item = new Item();
 //	private boolean newItem;
 	
 	public Item getItem() {
 		return item;
+	}
+	
+	public ItemForm() {
+		
+	}
+	public ItemForm(Item item) {
+		this.item = item;
 	}
 	
 //	public ItemForm(Item item) {

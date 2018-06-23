@@ -22,4 +22,8 @@ public interface ItemDao {
   void updateQuantityForInsertItem(Item item) throws DataAccessException;
 
   List<Item> getSellingItemListBySellerUsername(String username) throws DataAccessException;
+
+  public void deleteItem(String itemId) throws DataAccessException;
+  public void deleteItemInventory(String itemId) throws DataAccessException;
+  public void deleteItemMyActivity(String itemId) throws DataAccessException;
 }

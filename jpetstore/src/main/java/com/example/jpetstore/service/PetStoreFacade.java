@@ -50,6 +50,8 @@ public interface PetStoreFacade {
 	void insertItem(Item item);
 	//Added method for viewing list of my selling items
 	List<Item> getSellingItemListBySellerUsername(String username);
+	//Remove selling item
+	void deleteItem(String itemId);
 
 
 	void insertOrder(Order order);

@@ -1,3 +1,5 @@
+GitHub 커밋 안되어서 저장용으로 백업1
+
 drop sequence linenum;
 drop sequence ordernum;
 
@@ -181,6 +183,12 @@ create table inventory (
     constraint pk_inventory primary key (itemid)
 );
 
+/* 제약사항 추가.아이템 테이블에서 item 삭제 시 inventory에서도 해당 아이템 같이 삭제  
+ * 오류 너무 나서 제약조건 삭제함 
+alter table inventory 
+add constraint fk_inventory 
+foreign key (itemid) references item (itemid) on delete cascade;
+*/
 grant all on inventory to public;
 
 create table lineitem (

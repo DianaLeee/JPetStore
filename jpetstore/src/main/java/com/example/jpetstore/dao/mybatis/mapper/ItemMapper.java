@@ -42,4 +42,8 @@ public interface ItemMapper {
   void updateQuantityForInsertItem(Item item);
   
   List<Item> getSellingItemListBySellerUsername(String username);
+
+  void deleteItem(String itemId);
+  void deleteItemInventory(String itemId);
+  void deleteItemMyActivity(String itemId);
 }

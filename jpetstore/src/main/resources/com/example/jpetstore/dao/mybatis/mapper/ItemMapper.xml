@@ -96,4 +96,13 @@
       AND I.SELLERUSERNAME = #{value}
   </select>
   
+  <delete id="deleteItem" parameterType="string">
+  	DELETE FROM ITEM WHERE ITEMID=#{itemId}  
+  </delete>
+  <delete id="deleteItemInventory" parameterType="string">
+    DELETE FROM INVENTORY WHERE ITEMID=#{itemId}
+  </delete>
+  <delete id="deleteItemMyActivity" parameterType="string">
+  	DELETE FROM MYACTIVITY WHERE ITEMID=#{itemId}
+  </delete>
 </mapper>
