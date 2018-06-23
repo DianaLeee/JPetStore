@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.jpetstore.dao.mybatis.mapper.ItemMapper">
+  <cache />
+
+  <select id="getItemListByProduct" resultType="Item">
+    SELECT
+      I.ITEMID,
+      I.PRODUCTID,
+      LISTPRICE,
+      UNITCOST,
+      SUPPLIER AS supplierId,
+      I.PRODUCTID AS "product.productId",
+      NAME AS "product.name",
+      DESCN AS "product.description",
+      CATEGORY AS "product.categoryId",
+      STATUS,
+      ATTR1 AS attribute1,
+      ATTR2 AS attribute2
+    FROM ITEM I, PRODUCT P
+    WHERE P.PRODUCTID = I.PRODUCTID
+      AND I.PRODUCTID = #{value}
+  </select>
+
+  <select id="getItem" resultType="Item">
+    SELECT
+      I.ITEMID,
+      I.PRODUCTID,
+      LISTPRICE,
+      UNITCOST,
+      SUPPLIER AS supplierId,
+      I.PRODUCTID AS "product.productId",
+      NAME AS "product.name",
+      DESCN AS "product.description",
+      CATEGORY AS "product.categoryId",
+      STATUS,
+      ATTR1 AS attribute1,
+      ATTR2 AS attribute2,
+      QTY AS quantity
+    FROM ITEM I, INVENTORY V, PRODUCT P
+    WHERE P.PRODUCTID = I.PRODUCTID
+      AND I.ITEMID = V.ITEMID
+      AND I.ITEMID = #{value}
+  </select>
+
+  <select id="getInventoryQuantity" resultType="int">
+    SELECT QTY AS value
+    FROM INVENTORY
+    WHERE ITEMID = #{itemId}
+  </select>
+
+  <update id="updateInventoryQuantity">
+    UPDATE INVENTORY 
+    SET QTY = QTY - #{increment}
+    WHERE ITEMID = #{itemId}
+  </update>
+  
+ <insert id="insertItem" parameterType="Item">
+ 	<!-- keyProperty - Item.java에 있는 -->
+ 	<selectKey keyProperty="itemId" resultType="string" order="BEFORE">
+ 		SELECT SEQ_ID.NEXTVAL AS ITEMID FROM DUAL
+ 	</selectKey>
+  	INSERT INTO ITEM
+  	  (ITEMID, PRODUCTID, SELLERUSERNAME, LISTPRICE, ATTR1)
+  	VALUES
+  	  (#{itemId},(SELECT PRODUCTID FROM PRODUCT P, CATEGORY C WHERE P.CATEGORY=C.CATID AND C.CATID=#{product.categoryId} AND P.NAME=#{product.name}), #{sellerUsername}, #{listPrice}, #{attribute1})
+  </insert>
+  
+  
+  <insert id="updateQuantityForInsertItem" parameterType="Item">
+  	<selectKey keyProperty="itemId" resultType="string" order="BEFORE">
+ 		SELECT SEQ_ID.CURRVAL AS ITEMID FROM DUAL
+  	</selectKey>
+  	INSERT INTO INVENTORY
+      (ITEMID, QTY)
+    VALUES
+      (#{itemId}, 1)
+  </insert>
+  
+  <select id="getSellingItemListBySellerUsername" resultType="Item">
+    SELECT
+      I.ITEMID,
+      I.PRODUCTID,
+      LISTPRICE,
+      SELLERUSERNAME AS sellerUsername,
+      I.PRODUCTID AS "product.productId",
+      NAME AS "product.name",
+      DESCN AS "product.description",
+      CATEGORY AS "product.categoryId",
+      STATUS,
+      ATTR1 AS attribute1,
+      ATTR2 AS attribute2
+    FROM ITEM I, PRODUCT P
+    WHERE P.PRODUCTID = I.PRODUCTID
+      AND I.SELLERUSERNAME = #{value}
+  </select>
+  
+</mapper>
